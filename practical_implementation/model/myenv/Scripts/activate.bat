@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\1.WORKING-FOLDER\3.Study\4.Финтех_бакалавриат\007.Фин.математика\_Fin_Math_Project\myenv
+set VIRTUAL_ENV=E:\1.WORKING-FOLDER\3.Study\4.Финтех_бакалавриат\007.Фин.математика\_Fin_Math_Project\fin_math_project\practical_implementation\model\myenv
 
 if not defined PROMPT set PROMPT=$P$G
 
