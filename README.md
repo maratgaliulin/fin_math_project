@@ -57,4 +57,4 @@
 
 <a href='https://t.me/dimitrius2'>Дмитрий Казанский</a>
 
-<a href='https://t.me/baldallerie'>Валерий Лысенко</a>
+<a href='https://t.me/baldallerie'>Валерий Лысиков</a>

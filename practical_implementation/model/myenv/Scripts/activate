@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="E:\1.WORKING-FOLDER\3.Study\4.Финтех_бакалавриат\007.Фин.математика\_Fin_Math_Project\myenv"
+VIRTUAL_ENV="E:\1.WORKING-FOLDER\3.Study\4.Финтех_бакалавриат\007.Фин.математика\_Fin_Math_Project\fin_math_project\practical_implementation\model\myenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
