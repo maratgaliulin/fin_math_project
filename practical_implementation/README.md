@@ -1,3 +1,3 @@
 [В начало](../README.md)
 
-![](model/01.start.ipynb)
+![Просмотр реализации в ноутбуке: 01.start.ipynb](model/01.start.ipynb)
