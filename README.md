@@ -6,7 +6,7 @@
 2. [Теоретическая постановка](theoretical_statement/README.md)
 3. [Практическая реализация](practical_implementation/README.md)
 4. [Отчет (до 10 страниц)](report/README.md)
-5. [Презентация (на 10 минут + 5 минут на вопросы](presentation/README.pptx)
+5. [Презентация (на 10 минут + 5 минут на вопросы](presentation/README.md)
 <hr>
 
 ### Процесс
