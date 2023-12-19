@@ -4,7 +4,7 @@
 
 1. [Обзор литературы](articles_review/README.md)
 2. [Теоретическая постановка](theoretical_statement/README.md)
-3. [Практическая реализация](practical_implementation/README.md)
+3. [Практическая реализация](practical_implementation/01.start.ipynb)
 4. [Отчет (до 10 страниц)](report/README.md)
 5. [Презентация (на 10 минут + 5 минут на вопросы](presentation/README.pptx)
 <hr>
