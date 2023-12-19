@@ -8,6 +8,48 @@ from datetime import datetime
 def date_time_index_maker(dfr:pd.DataFrame): # функция по созданию строки типа "2023-12-14 00:00:00" из интовых данных столбцов <DATE> и <TIME>
     return datetime.strptime(dfr['Date'] + dfr['Time'], "%y%m%d%H%M%S")
 
+mpf_styles = ['binance',
+ 'blueskies',
+ 'brasil',
+ 'charles',
+ 'checkers',
+ 'classic',
+ 'default',
+ 'mike',
+ 'nightclouds',
+ 'sas',
+ 'starsandstripes',
+ 'yahoo']
+
+binance_dark = {
+    "base_mpl_style": "dark_background",
+    "marketcolors": {
+        "candle": {"up": "#3dc985", "down": "#ef4f60"},  
+        "edge": {"up": "#3dc985", "down": "#ef4f60"},  
+        "wick": {"up": "#3dc985", "down": "#ef4f60"},  
+        "ohlc": {"up": "green", "down": "red"},
+        "volume": {"up": "#247252", "down": "#82333f"},  
+        "vcedge": {"up": "green", "down": "red"},  
+        "vcdopcod": False,
+        "alpha": 1,
+    },
+    "mavcolors": ("#ad7739", "#a63ab2", "#62b8ba"),
+    "facecolor": "#1b1f24",
+    "gridcolor": "#2c2e31",
+    "gridstyle": "--",
+    "y_on_right": True,
+    "rc": {
+        "axes.grid": True,
+        "axes.grid.axis": "y",
+        "axes.edgecolor": "#474d56",
+        "axes.titlecolor": "red",
+        "figure.facecolor": "#161a1e",
+        "figure.titlesize": "x-large",
+        "figure.titleweight": "semibold",
+    },
+    "base_mpf_style": "binance-dark",
+}
+
 class dfContainerIntraDay:
     def __init__(self, df_path):
         self.df_path = df_path  # строковое значение пути распололжения датасета
@@ -38,13 +80,13 @@ class dfContainerIntraDay:
             start_date += ' 00:00:00' # прибавляет время к строке даты
             stdt = pd.to_datetime(start_date) # превращает строку в формат datetime
             end_date = pd.to_datetime(start_date) + d_o # задает конечную дату в зависимости от значения DateOffset
-            mpf.plot(self.curr_df.loc[stdt:end_date], type=type,mav=(3,6,9), figsize=fig_sz, volume=vol) # отрисовывает график
+            mpf.plot(self.curr_df.loc[stdt:end_date], type=type,mav=(3,6,9), figsize=fig_sz, volume=vol, style=binance_dark) # отрисовывает график
             plt.show()
           except:
             start_date += ' 00:15:00' # прибавляет время к строке даты
             stdt = pd.to_datetime(start_date) # превращает строку в формат datetime
             end_date = pd.to_datetime(start_date) + d_o # задает конечную дату в зависимости от значения DateOffset
-            mpf.plot(self.curr_df.loc[stdt:end_date], type=type,mav=(3,6,9), figsize=fig_sz, volume=vol) # отрисовывает график
+            mpf.plot(self.curr_df.loc[stdt:end_date], type=type,mav=(3,6,9), figsize=fig_sz, volume=vol, style=binance_dark) # отрисовывает график
             plt.show()
     # Условный оператор в зависимости от переменной type_graph:
         if type_graph <= 8:
