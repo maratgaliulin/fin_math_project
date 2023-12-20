@@ -19,7 +19,7 @@ def draw_do(df:pd.DataFrame, d_o: pd.DateOffset(), start_date, fig_sz, vol, type
                 mpf.make_addplot(DCL,color='#2962FF',panel=0),
                 mpf.make_addplot(Plot_RSI,panel=2,color='lime',ylim=(10,90),secondary_y=True),
             ]
-            mpf.plot(df.loc[stdt:end_date], type=type,mav=(3,6,9), figsize=fig_sz, volume=vol, style=binance_dark, addplot=apds) # отрисовывает график
+            mpf.plot(df.loc[stdt:end_date], type=type, figsize=fig_sz, volume=vol, style=binance_dark, addplot=apds) # отрисовывает график
             plt.show()
           except:
             start_date += ' 00:15:00' # прибавляет время к строке даты
@@ -35,5 +35,5 @@ def draw_do(df:pd.DataFrame, d_o: pd.DateOffset(), start_date, fig_sz, vol, type
                 mpf.make_addplot(DCL,color='#2962FF',panel=0),
                 mpf.make_addplot(Plot_RSI,panel=2,color='lime',ylim=(10,90),secondary_y=True),
             ]
-            mpf.plot(df.loc[stdt:end_date], type=type, mav=(3,6,9), figsize=fig_sz, volume=vol, style=binance_dark, addplot=apds) # отрисовывает график
+            mpf.plot(df.loc[stdt:end_date], type=type, figsize=fig_sz, volume=vol, style=binance_dark, addplot=apds) # отрисовывает график
             plt.show()
