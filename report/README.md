@@ -2,15 +2,6 @@
 
 > **Печатная форма Отчета** [доступна по ссылке](https://docs.google.com/document/d/1LDdcGKonEZA6_FaC48N1VvpRG3CL7Ef06_JrygggAJU/edit)
 
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 1; ALERTS: 3.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-<a href="#gdcalert2">alert2</a>
-<a href="#gdcalert3">alert3</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
 
 **Федеральное государственное автономное образовательное учреждение высшего образования**
 
@@ -30,10 +21,6 @@
 - Казанский Дмитрий
 
 Москва 2023
-
-
-[TOC]
-
 
 
 # Введение
