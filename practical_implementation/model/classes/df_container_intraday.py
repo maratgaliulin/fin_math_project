@@ -24,6 +24,22 @@ def diff_calc(df:pd.DataFrame):
       return neg_result
    else:
       return 0.0
+  
+def volume_summary(df:pd.DataFrame):
+   if df['candle_LZ'] < 0:
+      return str(df['Date']) + '_neg'
+   elif df['candle_LZ'] > 0:
+      return str(df['Date']) + '_pos'
+   else:
+      return str(df['Date']) + '_zero'
+   
+def neg_pos_volume_summary(df:pd.DataFrame):
+   if df['candle_LZ'] < 0:
+      return 'neg'
+   elif df['candle_LZ'] > 0:
+      return 'pos'
+   else:
+      return 'zero'
    
 
 class dfContainerIntraDay:
@@ -35,16 +51,34 @@ class dfContainerIntraDay:
         self.curr_df[['Open', 'High', 'Low', 'Close', 'Volume']] = self.curr_df[['Open', 'High', 'Low', 'Close', 'Volume']].astype('float32')  # Цифровые значения перевожу снова в float
         self.curr_df.index = pd.DatetimeIndex(self.curr_df.apply(date_time_index_maker, axis=1))  # применяю функцию date_time_index_maker к строкам датафрейма и делаю индекс из получившихся значений datetime
         self.curr_df['Date'] = self.curr_df.index.date
-        self.curr_df['Upper'] = self.curr_df['High'].rolling(self.period).max()
-        self.curr_df['Lower'] = self.curr_df['Low'].rolling(self.period).min()
-        self.curr_df['Middle'] = (self.curr_df['Upper'] + self.curr_df['Lower']) / 2
-        self.curr_df['rsi'] = relative_strength(self.curr_df['Close'],n=7)
+        # self.curr_df['Upper'] = self.curr_df['High'].rolling(self.period).max()
+        # self.curr_df['Lower'] = self.curr_df['Low'].rolling(self.period).min()
+        # self.curr_df['Middle'] = (self.curr_df['Upper'] + self.curr_df['Lower']) / 2
+        # self.curr_df['rsi'] = relative_strength(self.curr_df['Close'],n=7)
         self.minimax = pd.DataFrame(self.curr_df[['High', 'Low']].groupby(self.curr_df.index.date, as_index=True).agg({'High': 'max', 'Low': 'min'}))
         self.curr_df['daily_high'] = self.curr_df['Date'].map(self.minimax['High'])
         self.curr_df['daily_low'] = self.curr_df['Date'].map(self.minimax['Low'])
         self.curr_df['upper_zone_limit'] = self.curr_df.apply(func_upper_zone_limit, axis=1)
         self.curr_df['lower_zone_limit'] = self.curr_df.apply(func_lower_zone_limit, axis=1)
         self.curr_df['candle_LZ'] = self.curr_df.apply(diff_calc, axis=1)
+        self.curr_df['volume_summary'] = self.curr_df.apply(volume_summary, axis=1)
+        self.curr_df['neg_pos_volume_summary'] = self.curr_df.apply(neg_pos_volume_summary, axis=1)
+
+        self.negative = self.curr_df.loc[self.curr_df['neg_pos_volume_summary'] == 'neg'][['neg_pos_volume_summary', 'candle_LZ']]
+        self.negative['cumsum'] = self.negative['candle_LZ'].cumsum(axis=0)
+        self.negative['cumsum_%_50_000'] = self.negative['cumsum'] % 50000
+        self.negative['cumsum_%_TrueFalse'] = self.negative['cumsum'] % 50000 <= 7000
+
+        self.positive = self.curr_df.loc[self.curr_df['neg_pos_volume_summary'] == 'pos'][['neg_pos_volume_summary', 'candle_LZ']]
+        self.positive['cumsum'] = self.positive['candle_LZ'].cumsum(axis=0)
+        self.positive['cumsum_%_50_000'] = self.positive['cumsum'] % 50000
+        self.positive['cumsum_%_TrueFalse'] = self.positive['cumsum'] % 50000 <= 7000
+
+        self.curr_df['neg_true'] = self.curr_df.index.map(self.negative['cumsum_%_TrueFalse'])
+        self.curr_df['pos_true'] = self.curr_df.index.map(self.positive['cumsum_%_TrueFalse'])
+
+      #   self.cumulative = pd.DataFrame(self.curr_df[['Date', 'candle_LZ', 'volume_summary', 'neg_pos_volume_summary']].groupby('volume_summary', as_index=True).agg({'Date': 'max', 'candle_LZ': 'sum', 'neg_pos_volume_summary': 'max'}))
+        
 
     # Методы как в классе dfContainer
 
@@ -62,6 +96,12 @@ class dfContainerIntraDay:
 
     def minimax_write_to_file(self):
       self.minimax.to_csv('minimax.csv')
+
+   #  def cumulative_write_to_file(self):
+   #    self.cumulative.to_csv('cumulative.csv')
+      
+    def negative_write_to_file(self):
+      self.negative.to_csv('negative.csv')
 
     # Метод draw_graph() отрисовывает график датафрейма. start_date - дата начала графика (по умолчанию - 2022-12-01г),
     # type_graph - показывает, какой промежуток от start_date отрисовывать (если day, то 1 день, если week то 1 неделю, если month то 1 месяц)
